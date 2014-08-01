@@ -45,3 +45,9 @@ data = {
 }
 db.data(dictionary=data)
 ```
+
+```python
+# Deleting a value
+db = Database("mydata.db")
+db.delete("my_key")
+```

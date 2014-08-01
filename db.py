@@ -28,6 +28,16 @@ class Database(object):
         with open(self.db, "w") as db:
             json.dump(obj, db)
 
+    def delete(self, key):
+        """
+        Takes a key and removes the entry from the database.
+        """
+        obj = self._get_content()
+        obj.pop(key, None)
+
+        with open(self.db, "w") as db:
+            json.dump(obj, db)
+
     def data(self, **kwargs):
         """
         If a key is passed in, a corresponding value will be returned.

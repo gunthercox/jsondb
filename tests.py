@@ -5,7 +5,7 @@ from jsondb.db import Database
 class Tests(TestCase):
 
     def setUp(self):
-        content = "{\"image_url\": \"http://sky.net/image.jpg\", \"ip\": \"http://192.168.1.337\"}"
+        content = "{\"url\": \"http://sky.net\", \"ip\": \"http://10.0.1.337\"}"
         test = open("test.db", "w+")
         test.write(content)
 
@@ -29,3 +29,10 @@ class Tests(TestCase):
 
         self.assertTrue("id" in db.data())
         self.assertEqual(db.data(key="arduino_ip"), "xxxxxx")
+
+    def test_delete_key(self):
+        db = Database("test.db")
+        db.data(key="id", value="13")
+        db.delete("id")
+
+        self.assertFalse("id" in db.data())
