@@ -8,6 +8,7 @@ class Tests(TestCase):
         content = "{\"url\": \"http://sky.net\", \"ip\": \"http://10.0.1.337\"}"
         test = open("test.db", "w+")
         test.write(content)
+        test.close()
 
     def tearDown(self):
         import os
