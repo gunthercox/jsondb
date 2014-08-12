@@ -14,6 +14,18 @@ class Tests(TestCase):
         import os
         os.remove("test.db")
 
+    def test_get_key(self):
+        db = Database("test.db")
+        key = db.data(key="url")
+
+        self.assertTrue("sky.net" in key)
+
+    def test_get_key_not_in_database(self):
+        db = Database("test.db")
+        key = db.data(key="bogus")
+
+        self.assertTrue(key is None)
+
     def test_assign_key_value_pair(self):
         db = Database("test.db")
         db.data(key="cool", value="robot")

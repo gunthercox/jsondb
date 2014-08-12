@@ -17,7 +17,10 @@ class Database(object):
         db.close()
 
         if key:
-            return obj[key]
+            if key in obj.keys():
+                return obj[key]
+            else:
+                return None
 
         return obj
 
