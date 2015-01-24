@@ -1,4 +1,4 @@
-# jsondb [![Build Status](https://travis-ci.org/gunthercox/jsondb.svg)](https://travis-ci.org/gunthercox/jsondb)
+# jsondb [![Build Status][travis-image]][travis-build]
 
 This is a utility for managing content in a database which stores
 content in JSON format.
@@ -10,7 +10,8 @@ from jsondb.db import Database
 db = Database("mydata.db")
 ```
 
-The database has an attribute which works similar to [jQuery's data](http://api.jquery.com/data/) attribute.
+The database has an attribute which works similar to
+[jQuery's `data`][jquery-data] attribute.
 
 ```python
 # Getting all data
@@ -24,7 +25,7 @@ db = Database("mydata.db")
 print(db.data(key="user_count"))
 ```
 
-**It is important to note that a key will be created reguardless of whether it
+**It is important to note that a key will be created regardless of whether it
 exists as long as a value is provided.** The database has the same functionality
 as a dictionary.
 
@@ -40,8 +41,7 @@ db = Database("mydata.db")
 data = {
     "user_id": 234565,
     "user_name": "AwesomeUserName",
-    "is_moderator": True
-    ""
+    "is_moderator": True,
 }
 db.data(dictionary=data)
 ```
@@ -51,3 +51,7 @@ db.data(dictionary=data)
 db = Database("mydata.db")
 db.delete("my_key")
 ```
+
+[jquery-data]: http://api.jquery.com/data/
+[travis-build]: https://travis-ci.org/gunthercox/jsondb
+[travis-image]: https://travis-ci.org/gunthercox/jsondb.svg
