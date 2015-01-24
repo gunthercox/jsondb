@@ -52,6 +52,25 @@ db = Database("mydata.db")
 db.delete("my_key")
 ```
 
+The database also supports a dictionary-like syntax for retrieving, setting, and
+removing values.
+
+```python
+db = Database("mydata.db")
+
+# Retrieving a value
+value = db["key"]
+
+# Setting a value
+db["key"] = value
+
+# Removing a key
+del db["key"]
+
+# Checking if a key exists
+"key" in db
+```
+
 [jquery-data]: http://api.jquery.com/data/
 [travis-build]: https://travis-ci.org/gunthercox/jsondb
 [travis-image]: https://travis-ci.org/gunthercox/jsondb.svg
