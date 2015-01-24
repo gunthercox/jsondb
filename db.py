@@ -74,3 +74,17 @@ class Database(object):
                 self._set_content(key, value)
 
         return self._get_content()
+
+    # Dictionary compatibility methods
+
+    def __getitem__(self, key):
+        return self.data(key=key)
+
+    def __setitem__(self, key, value):
+        return self.data(key=key, value=value)
+
+    def __delitem__(self, key):
+        return self.delete(key=key)
+
+    def __contains__(self, key):
+        return key in self._get_content()
