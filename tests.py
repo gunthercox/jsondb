@@ -25,6 +25,45 @@ class BaseTestCase(TestCase):
 
 class Tests(BaseTestCase):
 
+    def test_create_none_exists(self):
+        """
+        A file should be created if none exists
+        and an empty {} is placed in the file.
+        """
+        from os import path
+        import os
+
+        database = Database("new.db")
+
+        data = ""
+        with open ("new.db", "r") as db:
+            data = db.read()
+
+        self.assertTrue(path.exists("new.db"))
+        self.assertTrue("{}" in data)
+
+        os.remove("new.db")
+
+    def test_empty_file_initialized(self):
+        """
+        Test that when a file exists but is empty,
+        a {} is added.
+        """
+        import os
+
+        # Create an new empty file
+        open("empty.db", 'a').close()
+
+        database = Database("empty.db")
+
+        data = ""
+        with open ("empty.db", "r") as db:
+            data = db.read()
+
+        self.assertTrue("{}" in data)
+
+        os.remove("empty.db")
+
     def test_get_key(self):
         key = self.database.data(key="url")
 

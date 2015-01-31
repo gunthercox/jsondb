@@ -13,9 +13,6 @@ class Database(object):
         """
         from os import path, stat
 
-        # TODO: Create test to make sure file is created if none exists. Test should verify that an empty {} is placed in the file.
-        # TODO: Test that when a file exists but is empty, a {} is added.
-
         # Create the file if it does not exist or is empty
         if not path.exists(db) or stat(db).st_size == 0:
             new_file = open(db, "w+")
