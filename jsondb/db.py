@@ -7,22 +7,22 @@ class Database(object):
     stores information in json format.
     """
 
-    def __init__(self, db):
+    def __init__(self, file_path):
         """
         Constructor takes the file path of the database as a parameter.
         """
         from os import path, stat
 
         # Create the file if it does not exist or is empty
-        if not path.exists(db) or stat(db).st_size == 0:
-            new_file = open(db, "w+")
+        if not path.exists(file_path) or stat(file_path).st_size == 0:
+            new_file = open(file_path, "w+")
             json.dump({}, new_file)
             new_file.close()
 
-        self.db = db
+        self.path = file_path
 
     def _get_content(self, key=None):
-        db = open(self.db, "r")
+        db = open(self.path, "r")
         content = db.read()
         obj = json.loads(content)
         db.close()
@@ -39,7 +39,7 @@ class Database(object):
         obj = self._get_content()
         obj[key] = value
 
-        with open(self.db, "w") as db:
+        with open(self.path, "w") as db:
             json.dump(obj, db)
 
     def delete(self, key):
@@ -49,7 +49,7 @@ class Database(object):
         obj = self._get_content()
         obj.pop(key, None)
 
-        with open(self.db, "w") as db:
+        with open(self.path, "w") as db:
             json.dump(obj, db)
 
     def data(self, **kwargs):
