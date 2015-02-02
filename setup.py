@@ -13,7 +13,7 @@ readme = lambda f: open(f, "r").read()
 
 setup(
     name="jsondatabase",
-    version="0.0.1",
+    version="0.0.2",
     description="A flat file database for json objects.",
     long_description=readme("readme.md") + "\n\n" + history,
     author="Gunther Cox",
