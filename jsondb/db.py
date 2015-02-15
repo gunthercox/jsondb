@@ -86,6 +86,17 @@ class Database(object):
 
         return self._get_content()
 
+    # Iterator methods
+
+    def __len__(self):
+        return len(self._get_content())
+
+    def __iter__(self):
+        return iter(self._get_content().keys())
+
+    def __list__(self):
+        return list(self._get_content().keys())
+
     # Dictionary compatibility methods
 
     def __getitem__(self, key):
