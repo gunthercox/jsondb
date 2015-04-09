@@ -21,8 +21,22 @@ class Database(object):
 
         self.path = file_path
 
+    def set_path(self, file_path):
+        from os import path, stat
+
+        # Create the file if it does not exist or is empty
+        if not path.exists(file_path) or stat(file_path).st_size == 0:
+
+            # Copy the content from the previous database to the new database
+            with open(self.path) as f:
+                with open(file_path, "w+") as f1:
+                    for line in f:
+                        f1.write(line)
+
+        self.path = file_path
+
     def _get_content(self, key=None):
-        db = open(self.path, "r")
+        db = open(self.path, "r+")
         content = db.read()
         obj = json.loads(content)
         db.close()
@@ -39,7 +53,7 @@ class Database(object):
         obj = self._get_content()
         obj[key] = value
 
-        with open(self.path, "w") as db:
+        with open(self.path, "w+") as db:
             json.dump(obj, db)
 
     def delete(self, key):
@@ -49,7 +63,7 @@ class Database(object):
         obj = self._get_content()
         obj.pop(key, None)
 
-        with open(self.path, "w") as db:
+        with open(self.path, "w+") as db:
             json.dump(obj, db)
 
     def data(self, **kwargs):
