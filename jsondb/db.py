@@ -26,12 +26,9 @@ class Database(object):
 
         # Create the file if it does not exist or is empty
         if not path.exists(file_path) or stat(file_path).st_size == 0:
-
-            # Copy the content from the previous database to the new database
-            with open(self.path) as f:
-                with open(file_path, "w+") as f1:
-                    for line in f:
-                        f1.write(line)
+            new_file = open(file_path, "w+")
+            json.dump({}, new_file)
+            new_file.close()
 
         self.path = file_path
 
