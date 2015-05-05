@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from unittest import TestCase
 from jsondb.db import Database
 
@@ -94,6 +95,25 @@ class Tests(BaseTestCase):
         self.database.delete("id")
 
         self.assertFalse("id" in self.database.data())
+
+
+class UnicodeTests(BaseTestCase):
+
+    def test_data_with_unicode_key(self):
+
+        unicode_text = u"∰ ∱ ∲ ∳ ⨋ ⨌⨔ ⨕ ⨖ ⨗ ⨘ ⨙ ⨚ ∫ ∬ ∭ ∮ ∯  ⨍ ⨎ ⨏ ⨐ ⨑ ⨒ ⨓  ⨛ ⨜"
+
+        self.database.data(key=unicode_text, value="13")
+
+        self.assertTrue(unicode_text in self.database.data())
+
+    def test_data_with_unicode_value(self):
+
+        unicode_text = u"∠ ∡ ⦛ ⦞ ⦟ ⦢ ⦣ ⦤ ⦥ ⦦ ⦧ ⦨ ⦩ ⦪ ⦫ ⦬ ⦭ ⦮ ⦯ ⦓ ⦔ ⦕ ⦖ ⟀"
+
+        self.database.data(key="unicode", value=unicode_text)
+
+        self.assertEqual(unicode_text, self.database.data(key="unicode"))
 
 
 class DictCompatibleTests(BaseTestCase):

@@ -3,6 +3,17 @@
 This is a utility for managing content in a database which stores
 content in JSON format.
 
+## Installation
+
+This package can be installed from [PyPi](https://pypi.python.org/pypi/jsondatabase) by running:
+
+```bash
+pip install jsondatabase
+```
+
+Note, the package name and the import name are different.
+Import the package using `import jsondb`.
+
 ## Usage
 
 ```python
