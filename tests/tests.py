@@ -103,9 +103,10 @@ class UnicodeTests(BaseTestCase):
 
         unicode_text = u"∰ ∱ ∲ ∳ ⨋ ⨌⨔ ⨕ ⨖ ⨗ ⨘ ⨙ ⨚ ∫ ∬ ∭ ∮ ∯  ⨍ ⨎ ⨏ ⨐ ⨑ ⨒ ⨓  ⨛ ⨜"
 
-        self.database.data(key=unicode_text, value="13")
+        self.database.data(key=unicode_text, value=13)
 
         self.assertTrue(unicode_text in self.database.data())
+        self.assertEqual(self.database.data(key=unicode_text), 13)
 
     def test_data_with_unicode_value(self):
 
