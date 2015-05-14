@@ -82,6 +82,10 @@ del db["key"]
 "key" in db
 ```
 
+## Performance
+If performance is an issue with large databases then the `python-cjson` module
+can be installed. jsondb will automatically detect this and use cjson instead.
+
 [jquery-data]: http://api.jquery.com/data/
 [travis-build]: https://travis-ci.org/gunthercox/jsondb
 [travis-image]: https://travis-ci.org/gunthercox/jsondb.svg
