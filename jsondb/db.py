@@ -1,4 +1,20 @@
-import cjson as json
+# Use the faster cjson library if it is available
+try:
+    import cjson as json
+
+    encode = json.encode
+    decode = json.decode
+except ImportError:
+    import json
+
+    encode = 0
+    decode = 0
+
+def json_encode(value):
+    return encode(value)
+
+def json_decode(value):
+    return decode(value)
 
 
 class Database(object):
@@ -11,9 +27,9 @@ class Database(object):
         """
         Constructor takes the file path of the database as a parameter.
         """
-
         self.path = None
         self.set_path(file_path)
+        # TODO: Do not access file if no change was made
 
     def set_path(self, file_path):
         from os import path, stat
@@ -21,7 +37,7 @@ class Database(object):
         # Create the file if it does not exist or is empty
         if not path.exists(file_path) or stat(file_path).st_size == 0:
             new_file = open(file_path, "w+")
-            content = json.encode({})
+            content = json_encode({})
             new_file.write(content)
             new_file.close()
 
@@ -30,7 +46,7 @@ class Database(object):
     def _get_content(self, key=None):
         db = open(self.path, "r+")
         content = db.read()
-        obj = json.decode(content)
+        obj = json_decode(content)
         db.close()
 
         if key:
@@ -46,7 +62,7 @@ class Database(object):
         obj[key] = value
 
         with open(self.path, "w+") as db:
-            db.write(json.encode(obj))
+            db.write(json_encode(obj))
 
     def delete(self, key):
         """
@@ -56,7 +72,7 @@ class Database(object):
         obj.pop(key, None)
 
         with open(self.path, "w+") as db:
-            db.write(json.encode(obj))
+            db.write(json_encode(obj))
 
     def data(self, **kwargs):
         """
