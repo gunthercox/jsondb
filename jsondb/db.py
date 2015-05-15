@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from . import json_coder
+from file_writer import read_data, write_data
 
 
 class Database(object):
@@ -21,18 +21,12 @@ class Database(object):
 
         # Create the file if it does not exist or is empty
         if not path.exists(file_path) or stat(file_path).st_size == 0:
-            new_file = open(file_path, "w+")
-            content = json_coder.encode({})
-            new_file.write(content)
-            new_file.close()
+            write_data(file_path, {})
 
         self.path = file_path
 
     def _get_content(self, key=None):
-        db = open(self.path, "r+")
-        content = db.read()
-        obj = json_coder.decode(content)
-        db.close()
+        obj = read_data(self.path)
 
         if key:
             if key in obj.keys():
@@ -46,8 +40,7 @@ class Database(object):
         obj = self._get_content()
         obj[key] = value
 
-        with open(self.path, "w+") as db:
-            db.write(json_coder.encode(obj))
+        data = write_data(self.path, obj)
 
     def delete(self, key):
         """
@@ -56,8 +49,7 @@ class Database(object):
         obj = self._get_content()
         obj.pop(key, None)
 
-        with open(self.path, "w+") as db:
-            db.write(json_coder.encode(obj))
+        data = write_data(self.path, obj)
 
     def data(self, **kwargs):
         """
