@@ -20,3 +20,16 @@ def encode(value):
 
 def decode(value):
     return json_decode(value)
+
+'''
+Python 2 and 3 unicode string compatability.
+'''
+
+import sys
+if sys.version < "3":
+    import codecs
+    def u(x):
+        return codecs.unicode_escape_decode(x)[0]
+else:
+    def u(x):
+        return x

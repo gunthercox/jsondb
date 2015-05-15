@@ -1,4 +1,4 @@
-from . import json_coder
+from .util import decode, encode
 
 
 def read_data(path):
@@ -8,7 +8,7 @@ def read_data(path):
     db = open(path, "r+")
     content = db.read()
 
-    obj = json_coder.decode(content)
+    obj = decode(content)
 
     db.close()
 
@@ -19,7 +19,7 @@ def write_data(path, obj):
     Writes to a file and returns the updated file content.
     """
     with open(path, "w+") as db:
-        db.write(json_coder.encode(obj))
+        db.write(encode(obj))
 
     return obj
 

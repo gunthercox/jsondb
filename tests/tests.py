@@ -1,18 +1,7 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 from jsondb.db import Database
-
-'''
-Python 2 and 3 unicode compatability.
-'''
-import sys
-if sys.version < '3':
-    import codecs
-    def u(x):
-        return codecs.unicode_escape_decode(x)[0]
-else:
-    def u(x):
-        return x
+from jsondb.util import u
 
 
 class BaseTestCase(TestCase):
