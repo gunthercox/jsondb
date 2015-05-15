@@ -22,3 +22,11 @@ def write_data(path, obj):
         db.write(json_coder.encode(obj))
 
     return obj
+
+def is_valid(file_path):
+    """
+    Check to see if a file exists or is empty
+    """
+    from os import path, stat
+
+    return not path.exists(file_path) or stat(file_path).st_size == 0

@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-from file_writer import read_data, write_data
+from file_writer import read_data, write_data, is_valid
 
 
 class Database(object):
     """
-    This is a class that manages a file database which
-    stores information in json format.
+    This class manages a file database which stores information in json format.
     """
 
     def __init__(self, file_path):
@@ -14,13 +13,9 @@ class Database(object):
         """
         self.path = None
         self.set_path(file_path)
-        # TODO: Do not access file if no change was made
 
     def set_path(self, file_path):
-        from os import path, stat
-
-        # Create the file if it does not exist or is empty
-        if not path.exists(file_path) or stat(file_path).st_size == 0:
+        if is_valid(file_path):
             write_data(file_path, {})
 
         self.path = file_path
