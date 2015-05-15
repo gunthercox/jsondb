@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 from jsondb.db import Database
-from jsondb.util import u
+from jsondb.compat import u
 
 
 class BaseTestCase(TestCase):
@@ -143,3 +143,11 @@ class DictCompatibleTests(BaseTestCase):
         del self.database["url"]
 
         self.assertEqual(self.database["url"], None)
+
+
+class UtilityTests(TestCase):
+
+    def test_nonexistant_database_is_invalid(self):
+        from jsondb.file_writer import is_valid
+
+        self.assertFalse(is_valid("some_nonexistant_file.db"))

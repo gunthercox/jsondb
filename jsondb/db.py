@@ -3,18 +3,20 @@ from .file_writer import read_data, write_data, is_valid
 
 
 class Database(object):
-    """
-    This class manages a file database which stores information in json format.
-    """
 
     def __init__(self, file_path):
         """
+        This class manages a json-formatted file database.
         Constructor takes the file path of the database as a parameter.
         """
         self.path = None
         self.set_path(file_path)
 
     def set_path(self, file_path):
+        """
+        Set the path of the database.
+        Create the file if it does not exist.
+        """
         if not is_valid(file_path):
             write_data(file_path, {})
 
@@ -39,7 +41,7 @@ class Database(object):
 
     def delete(self, key):
         """
-        Takes a key and removes the entry from the database.
+        Removes the specified key from the database.
         """
         obj = self._get_content()
         obj.pop(key, None)

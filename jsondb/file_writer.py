@@ -1,4 +1,4 @@
-from .util import decode, encode
+from .compat import decode, encode
 
 
 def read_data(path):
