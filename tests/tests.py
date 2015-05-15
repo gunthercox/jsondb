@@ -2,6 +2,18 @@
 from unittest import TestCase
 from jsondb.db import Database
 
+'''
+Python 2 and 3 unicode compatability.
+'''
+import sys
+if sys.version < '3':
+    import codecs
+    def u(x):
+        return codecs.unicode_escape_decode(x)[0]
+else:
+    def u(x):
+        return x
+
 
 class BaseTestCase(TestCase):
 
@@ -101,7 +113,7 @@ class UnicodeTests(BaseTestCase):
 
     def test_data_with_unicode_key(self):
 
-        unicode_text = u"∰ ∱ ∲ ∳ ⨋ ⨌⨔ ⨕ ⨖ ⨗ ⨘ ⨙ ⨚ ∫ ∬ ∭ ∮ ∯  ⨍ ⨎ ⨏ ⨐ ⨑ ⨒ ⨓  ⨛ ⨜"
+        unicode_text = u("∰ ∱ ∲ ∳ ⨋ ⨌⨔ ⨕ ⨖ ⨗ ⨘ ⨙ ⨚ ∫ ∬ ∭ ∮ ∯  ⨍ ⨎ ⨏ ⨐ ⨑ ⨒ ⨓  ⨛ ⨜")
 
         self.database.data(key=unicode_text, value=13)
 
@@ -110,7 +122,7 @@ class UnicodeTests(BaseTestCase):
 
     def test_data_with_unicode_value(self):
 
-        unicode_text = u"∠ ∡ ⦛ ⦞ ⦟ ⦢ ⦣ ⦤ ⦥ ⦦ ⦧ ⦨ ⦩ ⦪ ⦫ ⦬ ⦭ ⦮ ⦯ ⦓ ⦔ ⦕ ⦖ ⟀"
+        unicode_text = u("∠ ∡ ⦛ ⦞ ⦟ ⦢ ⦣ ⦤ ⦥ ⦦ ⦧ ⦨ ⦩ ⦪ ⦫ ⦬ ⦭ ⦮ ⦯ ⦓ ⦔ ⦕ ⦖ ⟀")
 
         self.database.data(key="unicode", value=unicode_text)
 

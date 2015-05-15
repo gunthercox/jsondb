@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from file_writer import read_data, write_data, is_valid
+from .file_writer import read_data, write_data, is_valid
 
 
 class Database(object):
