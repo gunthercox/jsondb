@@ -15,7 +15,7 @@ class Database(object):
         self.set_path(file_path)
 
     def set_path(self, file_path):
-        if is_valid(file_path):
+        if not is_valid(file_path):
             write_data(file_path, {})
 
         self.path = file_path

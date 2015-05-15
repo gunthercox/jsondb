@@ -29,4 +29,4 @@ def is_valid(file_path):
     """
     from os import path, stat
 
-    return not path.exists(file_path) or stat(file_path).st_size == 0
+    return path.exists(file_path) and stat(file_path).st_size > 0
