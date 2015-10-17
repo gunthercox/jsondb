@@ -97,6 +97,11 @@ class Tests(BaseTestCase):
 
         self.assertFalse("id" in self.database.data())
 
+    def test_empty_key_string(self):
+        data = self.database.data(key="")
+
+        self.assertEqual(data, None)
+
 
 class UnicodeTests(BaseTestCase):
 
@@ -151,3 +156,4 @@ class UtilityTests(TestCase):
         from jsondb.file_writer import is_valid
 
         self.assertFalse(is_valid("some_nonexistant_file.db"))
+

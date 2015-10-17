@@ -16,7 +16,7 @@ requirements = req.readlines()
 
 setup(
     name="jsondatabase",
-    version="0.0.6",
+    version="0.0.7",
     description="A flat file database for json objects.",
     long_description=readme("readme.md") + "\n\n" + history,
     author="Gunther Cox",

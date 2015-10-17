@@ -25,7 +25,7 @@ class Database(object):
     def _get_content(self, key=None):
         obj = read_data(self.path)
 
-        if key:
+        if key or key == "":
             if key in obj.keys():
                 return obj[key]
             else:
