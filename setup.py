@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
 try:
     from setuptools import setup
 except ImportError:
@@ -11,12 +10,9 @@ history = open("history.rst").read().replace(".. :changelog:", "")
 
 readme = lambda f: open(f, "r").read()
 
-req = open("requirements.txt")
-requirements = req.readlines()
-
 setup(
     name="jsondatabase",
-    version="0.0.9",
+    version="0.1.0",
     description="A flat file database for json objects.",
     long_description=readme("readme.md") + "\n\n" + history,
     author="Gunther Cox",
@@ -25,7 +21,6 @@ setup(
     packages=["jsondb"],
     package_dir={"jsondb": "jsondb"},
     include_package_data=True,
-    install_requires=requirements,
     license="BSD",
     zip_safe=True,
     keywords = ["jsondb"],
