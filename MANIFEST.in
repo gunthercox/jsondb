@@ -2,3 +2,6 @@ include history.rst
 include readme.md
 
 recursive-include tests *
+
+recursive-exclude * *.pyc
+recursive-exclude * *.py~

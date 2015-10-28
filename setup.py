@@ -10,9 +10,12 @@ history = open("history.rst").read().replace(".. :changelog:", "")
 
 readme = lambda f: open(f, "r").read()
 
+# Dynamically import the version
+version = __import__('jsondb').__version__
+
 setup(
     name="jsondatabase",
-    version="0.1.0",
+    version=version,
     description="A flat file database for json objects.",
     long_description=readme("readme.md") + "\n\n" + history,
     author="Gunther Cox",
