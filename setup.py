@@ -16,7 +16,7 @@ requirements = req.readlines()
 
 setup(
     name="jsondatabase",
-    version="0.0.8",
+    version="0.0.9",
     description="A flat file database for json objects.",
     long_description=readme("readme.md") + "\n\n" + history,
     author="Gunther Cox",
@@ -27,7 +27,7 @@ setup(
     include_package_data=True,
     install_requires=requirements,
     license="BSD",
-    zip_safe=False,
+    zip_safe=True,
     keywords = ["jsondb"],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
