@@ -1,11 +1,15 @@
 from .compat import decode, encode
 
 
-def read_data(path):
+def read_data(file_path):
     """
     Reads a file and returns a json encoded representation of the file.
     """
-    db = open(path, "r+")
+
+    if not is_valid(file_path):
+        write_data(file_path, {})
+
+    db = open(file_path, "r+")
     content = db.read()
 
     obj = decode(content)
@@ -25,8 +29,18 @@ def write_data(path, obj):
 
 def is_valid(file_path):
     """
-    Check to see if a file exists or is empty
+    Check to see if a file exists or is empty.
     """
     from os import path, stat
 
-    return path.exists(file_path) and stat(file_path).st_size > 0
+    can_open = False
+
+    try:
+        with open(file_path) as fp:
+            can_open = True
+    except IOError:
+        return False
+
+    is_file = path.isfile(file_path)
+
+    return path.exists(file_path) and is_file and stat(file_path).st_size > 0
