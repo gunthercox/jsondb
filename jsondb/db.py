@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from .file_writer import read_data, write_data, is_valid
+from .compat import iteritems
 
 
 class Database(object):
@@ -103,8 +104,8 @@ class Database(object):
         """
         results = self._get_content().copy()
 
-        for item, content in self._get_content().iteritems():
-            for key, value in filter_arguments.iteritems():
+        for item, content in iteritems(self._get_content()):
+            for key, value in iteritems(filter_arguments):
                 keys = key.split('.')
                 value = filter_arguments[key]
 
