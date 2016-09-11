@@ -82,6 +82,37 @@ class Database(object):
 
         return self._get_content()
 
+    def _contains_value(self, obj, keys, find_value):
+        key = keys.pop(0)
+
+        # If there are no keys left
+        if not len(keys):
+            if obj[key] == find_value:
+                return True
+            else:
+                return False
+
+        if isinstance(obj, dict):
+            if key in obj:
+                return self._contains_value(obj[key], keys, find_value)
+
+    def filter(self, filter_arguments):
+        """
+        Takes a dictionary of filter parameters.
+        Return a list of objects based on a list of parameters.
+        """
+        results = self._get_content().copy()
+
+        for item, content in self._get_content().iteritems():
+            for key, value in filter_arguments.iteritems():
+                keys = key.split('.')
+                value = filter_arguments[key]
+
+                if not self._contains_value({item: content}, keys, value):
+                    del(results[item])
+
+        return results
+
     # Iterator methods
 
     def __len__(self):

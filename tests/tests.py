@@ -82,11 +82,10 @@ class Tests(BaseTestCase):
         self.assertEqual(self.database.data(key="cool"), "robot")
 
     def test_assign_dictionary(self):
-        d = {
+        self.database.data(dictionary={
             "id": "123456",
             "arduino_ip": "xxxxxx"
-        }
-        self.database.data(dictionary=d)
+        })
 
         self.assertTrue("id" in self.database.data())
         self.assertEqual(self.database.data(key="arduino_ip"), "xxxxxx")
@@ -102,6 +101,56 @@ class Tests(BaseTestCase):
 
         self.assertEqual(data, None)
 
+
+class FilterTests(BaseTestCase):
+
+    def setUp(self):
+        super(FilterTests, self).setUp()
+
+        self.domain_values = {
+            "name": "Eukarya",
+            "kingdom": {
+                "name": "Animalia",
+                "phylum": {
+                    "name": "Chordata",
+                    "class": {
+                        "name": "Mamalia",
+                        "order": {
+                            "name": "Carnivora",
+                            "family": {
+                                "name": "Canidae",
+                                "genus": {
+                                    "name": "Vulpes",
+                                    "species": {
+                                        "name": "vulpes"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    def test_filter_nested_object_equals(self):
+        self.database.data(key="domain", value=self.domain_values)
+
+        results = self.database.filter({
+            "domain.kingdom.phylum.class.name": "Mamalia"
+        })
+
+        self.assertEqual(len(results), 1)
+        self.assertIn("domain", results)
+        self.assertEqual(results["domain"], self.domain_values)
+
+    def test_filter_nested_object_equals_false(self):
+        self.database.data(key="domain", value=self.domain_values)
+
+        results = self.database.filter({
+            "domain.kingdom.phylum.class.name": "Fake"
+        })
+
+        self.assertEqual(len(results), 0)
 
 class UnicodeTests(BaseTestCase):
 
