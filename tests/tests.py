@@ -107,6 +107,11 @@ class FilterTests(BaseTestCase):
     def setUp(self):
         super(FilterTests, self).setUp()
 
+        self.key_values = {
+            "Eukarya": ["potatoes", "pine trees", "amoebae", "dogs"],
+            "Prokaryote": ["Escherichia coli", "Streptomyces soil"]
+        }
+
         self.domain_values = {
             "name": "Eukarya",
             "kingdom": {
@@ -149,6 +154,21 @@ class FilterTests(BaseTestCase):
         results = self.database.filter({
             "domain.kingdom.phylum.class.name": "Fake"
         })
+
+        self.assertEqual(len(results), 0)
+
+    def test_filter_by_keys(self):
+        self.database.data(dictionary=self.key_values)
+
+        results = self.database.filter("Prokaryote")
+
+        self.assertEqual(len(results), 1)
+        self.assertIn("Prokaryote", results[0])
+
+    def test_filter_by_keys_false(self):
+        self.database.data(dictionary=self.key_values)
+
+        results = self.database.filter("James the Orangatang")
 
         self.assertEqual(len(results), 0)
 

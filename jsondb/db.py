@@ -104,13 +104,22 @@ class Database(object):
         """
         results = self._get_content()
 
-        for item, content in iteritems(self._get_content()):
-            for key, value in iteritems(filter_arguments):
-                keys = key.split('.')
-                value = filter_arguments[key]
+        # Filter based on a dictionary of search parameters
+        if type(filter_arguments) is dict:
+            for item, content in iteritems(self._get_content()):
+                for key, value in iteritems(filter_arguments):
+                    keys = key.split('.')
+                    value = filter_arguments[key]
 
-                if not self._contains_value({item: content}, keys, value):
-                    del(results[item])
+                    if not self._contains_value({item: content}, keys, value):
+                        del(results[item])
+
+        # Filter based on an input string that should match database key
+        if type(filter_arguments) is str:
+            if filter_arguments in results:
+                return [{filter_arguments: results[filter_arguments]}]
+            else:
+                return []
 
         return results
 
