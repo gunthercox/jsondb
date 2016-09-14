@@ -102,7 +102,7 @@ class Database(object):
         Takes a dictionary of filter parameters.
         Return a list of objects based on a list of parameters.
         """
-        results = self._get_content().copy()
+        results = self._get_content()
 
         for item, content in iteritems(self._get_content()):
             for key, value in iteritems(filter_arguments):
