@@ -1,4 +1,7 @@
-# jsondb [![Build Status][travis-image]][travis-build]
+# jsondb
+
+[![Build Status][travis-image]][travis-build]
+[![PyPI version](https://badge.fury.io/py/jsondatabase.svg)](https://badge.fury.io/py/jsondatabase)
 
 This is a utility for managing content in a database which stores
 content in JSON format.
