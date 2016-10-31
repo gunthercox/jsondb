@@ -18,11 +18,11 @@ except ImportError:
 
 
 def encode(value):
-    return json_encode(value)
+    return json_encode(value, ensure_ascii=False)
 
 
 def decode(value):
-    return json_decode(value)
+    return json_decode(value, encoding='utf-8')
 
 
 if sys.version < '3':

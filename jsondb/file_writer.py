@@ -9,7 +9,7 @@ def read_data(file_path):
     if not is_valid(file_path):
         write_data(file_path, {})
 
-    db = open(file_path, "r+")
+    db = open(file_path, 'r+', encoding='utf-8')
     content = db.read()
 
     obj = decode(content)
@@ -22,7 +22,7 @@ def write_data(path, obj):
     """
     Writes to a file and returns the updated file content.
     """
-    with open(path, "w+") as db:
+    with open(path, 'w+', encoding='utf-8') as db:
         db.write(encode(obj))
 
     return obj
