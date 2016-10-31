@@ -1,4 +1,4 @@
-from .compat import decode, encode
+from .compat import decode, encode, open_file_for_reading, open_file_for_writing
 
 
 def read_data(file_path):
@@ -9,7 +9,7 @@ def read_data(file_path):
     if not is_valid(file_path):
         write_data(file_path, {})
 
-    db = open(file_path, 'r+', encoding='utf-8')
+    db = open_file_for_reading(file_path)
     content = db.read()
 
     obj = decode(content)
@@ -22,7 +22,7 @@ def write_data(path, obj):
     """
     Writes to a file and returns the updated file content.
     """
-    with open(path, 'w+', encoding='utf-8') as db:
+    with open_file_for_writing(path) as db:
         db.write(encode(obj))
 
     return obj
