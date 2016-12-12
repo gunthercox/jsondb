@@ -1,6 +1,10 @@
+"""
+A flat file database for json objects.
+"""
+
 from .db import Database
 
-__version__ = '0.1.3'
-__maintainer__ = 'Gunther Cox'
+__version__ = '0.1.4'
+__author__ = 'Gunther Cox'
 __email__ = 'gunthercx@gmail.com'
-
+__url__ = 'https://github.com/gunthercox/jsondb'

@@ -6,39 +6,44 @@ try:
 except ImportError:
     from distutils.core import setup
 
-history = open("history.rst").read().replace(".. :changelog:", "")
+HISTORY = open('history.rst').read().replace('.. :changelog:', '')
 
-readme = lambda f: open(f, "r").read()
+README = lambda f: open(f, 'r').read()
 
-# Dynamically import the version
-version = __import__('jsondb').__version__
+# Dynamically import the package information
+JSONDB = __import__('jsondb')
+VERSION = JSONDB.__version__
+AUTHOR = JSONDB.__author__
+AUTHOR_EMAIL = JSONDB.__email__
+URL = JSONDB.__url__
+DESCRIPTION = JSONDB.__doc__
 
 setup(
-    name="jsondatabase",
-    version=version,
-    description="A flat file database for json objects.",
-    long_description=readme("readme.md") + "\n\n" + history,
-    author="Gunther Cox",
-    author_email="gunthercx@gmail.com",
-    url="https://github.com/gunthercox/jsondb",
-    packages=["jsondb"],
-    package_dir={"jsondb": "jsondb"},
+    name='jsondatabase',
+    version=VERSION,
+    description=DESCRIPTION,
+    long_description=README('readme.md') + '\n\n' + HISTORY,
+    author=AUTHOR,
+    author_email=AUTHOR_EMAIL,
+    url=URL,
+    packages=['jsondb'],
+    package_dir={'jsondb': 'jsondb'},
     include_package_data=True,
-    license="BSD",
+    license='BSD',
     zip_safe=True,
-    keywords = ["jsondb"],
+    keywords=['jsondb'],
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: BSD License",
-        "Natural Language :: English",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.6",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
     ],
-    test_suite="tests",
+    test_suite='tests',
     tests_require=[]
 )
