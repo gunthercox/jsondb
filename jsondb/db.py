@@ -40,9 +40,6 @@ class Database(object):
         Set the path of the database.
         Create the file if it does not exist.
         """
-
-        print(dir(self))
-
         if not file_path:
             self.read_data = self.memory_read
             self.write_data = self.memory_write
