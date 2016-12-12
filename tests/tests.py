@@ -219,6 +219,17 @@ class DictCompatibleTests(BaseTestCase):
         self.assertEqual(self.database["url"], None)
 
 
+class InMemoryTests(TestCase):
+
+    def setUp(self):
+        self.database = Database(None)
+
+    def test_nonexistant_database_is_invalid(self):
+        self.database.data(key="memory", value="yes")
+
+        self.assertEqual(self.database.data(key="memory"), "yes")
+
+
 class UtilityTests(TestCase):
 
     def test_nonexistant_database_is_invalid(self):

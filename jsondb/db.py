@@ -1,30 +1,58 @@
 # -*- coding: utf-8 -*-
-from .file_writer import read_data, write_data, is_valid
+from .file_writer import is_valid
 from .compat import iteritems
 
 
 class Database(object):
+    """
+    A class for a dictionary of data stored in a JSON file.
+    """
 
     def __init__(self, file_path):
         """
         This class manages a json-formatted file database.
         Constructor takes the file path of the database as a parameter.
         """
+        from .file_writer import read_data, write_data
+
+        self.read_data = read_data
+        self.write_data = write_data
+
         self.path = None
         self.set_path(file_path)
+
+        self._data = {}
+
+    def memory_read(self, _):
+        """
+        Return the in-memory data.
+        """
+        return self._data
+
+    def memory_write(self, _, data):
+        """
+        Write to the in-memory data.
+        """
+        self._data = data
 
     def set_path(self, file_path):
         """
         Set the path of the database.
         Create the file if it does not exist.
         """
-        if not is_valid(file_path):
-            write_data(file_path, {})
+
+        print(dir(self))
+
+        if not file_path:
+            self.read_data = self.memory_read
+            self.write_data = self.memory_write
+        elif not is_valid(file_path):
+            self.write_data(file_path, {})
 
         self.path = file_path
 
     def _get_content(self, key=None):
-        obj = read_data(self.path)
+        obj = self.read_data(self.path)
 
         if key or key == "":
             if key in obj.keys():
@@ -38,7 +66,7 @@ class Database(object):
         obj = self._get_content()
         obj[key] = value
 
-        data = write_data(self.path, obj)
+        self.write_data(self.path, obj)
 
     def delete(self, key):
         """
@@ -47,7 +75,7 @@ class Database(object):
         obj = self._get_content()
         obj.pop(key, None)
 
-        data = write_data(self.path, obj)
+        self.write_data(self.path, obj)
 
     def data(self, **kwargs):
         """
@@ -105,17 +133,17 @@ class Database(object):
         results = self._get_content()
 
         # Filter based on a dictionary of search parameters
-        if type(filter_arguments) is dict:
+        if isinstance(filter_arguments, dict):
             for item, content in iteritems(self._get_content()):
                 for key, value in iteritems(filter_arguments):
                     keys = key.split('.')
                     value = filter_arguments[key]
 
                     if not self._contains_value({item: content}, keys, value):
-                        del(results[item])
+                        del results[item]
 
         # Filter based on an input string that should match database key
-        if type(filter_arguments) is str:
+        if isinstance(filter_arguments, str):
             if filter_arguments in results:
                 return [{filter_arguments: results[filter_arguments]}]
             else:
