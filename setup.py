@@ -26,6 +26,7 @@ setup(
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     url=URL,
+    install_requires=['pymongo'],
     packages=['jsondb'],
     package_dir={'jsondb': 'jsondb'},
     include_package_data=True,

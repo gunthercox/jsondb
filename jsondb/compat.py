@@ -18,14 +18,18 @@ except ImportError:
 
 
 def encode(value):
-    value = json_encode(value, ensure_ascii=False)
+    from bson import json_util
+
+    value = json_encode(value, ensure_ascii=False, default=json_util.default)
     if sys.version < '3':
         return unicode(value)
     return value
 
 
 def decode(value):
-    return json_decode(value, encoding='utf-8')
+    from bson import json_util
+
+    return json_decode(value, encoding='utf-8', object_hook=json_util.object_hook)
 
 
 if sys.version < '3':
